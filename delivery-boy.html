@@ -1,0 +1,28 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Boy - AM DAIRY</title><style>
+*{font-family:Arial;margin:0;box-sizing:border-box}body{background:#fefce8;padding:10px}
+.hdr{background:#f59e0b;color:#fff;padding:12px;text-align:center;font-weight:bold}
+.card{background:#fff;padding:12px;border-radius:10px;margin:10px 0;box-shadow:0 2px 6px #0002}
+.btn{width:100%;padding:12px;border:0;border-radius:8px;color:#fff;font-weight:bold;margin-top:6px}
+</style></head><body>
+<div class="hdr">🛵 DELIVERY BOY APP - AM DAIRY</div>
+<div id="list"></div>
+<script>
+const API='http://localhost:3000';
+async function load(){
+  let r=await fetch(API+'/api/orders'); let orders=await r.json();
+  let myOrders=orders.filter(o=>o.status!=='delivered' && o.status!=='pending');
+  let h='';
+  myOrders.forEach(o=>{
+    h+=`<div class="card">
+    <b>${o.id}</b><br>👤 ${o.name} - 📞 <a href="tel:${o.phone}">${o.phone}</a><br>
+    📍 ${o.area} ${o.door||''}<br>💰 Rs.${o.total} - ${o.status}<br>
+    <button class="btn" style="background:#8b5cf6" onclick="statusUp('${o.id}','out-for-delivery')">📦 Out for Delivery</button>
+    <button class="btn" style="background:#10b981" onclick="statusUp('${o.id}','delivered')">✅ Delivered</button>
+    <a class="btn" style="background:#25D366;display:block;text-align:center;text-decoration:none" href="https://www.google.com/maps/search/${encodeURIComponent(o.area)}">📍 Open Map</a>
+    </div>`;
+  });
+  document.getElementById('list').innerHTML=h||'No delivery';
+}
+async function statusUp(id,s){await fetch(API+'/api/status',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({orderId:id,status:s})});load();}
+load();setInterval(load,5000);
+</script></body></html>
