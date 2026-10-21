@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AM Dairy - Orders List</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{font-family:Arial;padding:10px}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th,td{border:1px solid #333;padding:8px;font-size:14px;text-align:left}
+th{background:#16a34a;color:white}
+.product-col{white-space:pre-line}
+@media print{button{display:none}}
+</style>
+</head>
+<body>
+<h2>AM DAIRY - Customer Orders</h2>
+<button onclick="window.print()" style="padding:10px;background:green;color:white;border:none">🖨️ Print List</button>
+<button onclick="clearOrders()" style="padding:10px;background:red;color:white;border:none">Clear All</button>
+<button onclick="exportCSV()" style="padding:10px;background:blue;color:white;border:none">📥 Excel Download</button>
+
+<table id="orderTable">
+<tr>
+<th>Date</th>
+<th>Customer Name</th>
+<th>Phone Number</th>
+<th>Product List (Column)</th>
+<th>Total</th>
+</tr>
+</table>
+
+<script>
+let orders = JSON.parse(localStorage.getItem('amOrders') || '[]');
+let table = document.getElementById('orderTable');
+
+orders.reverse().forEach(o => {
+  let productsText = o.items.map(i => `${i.name} - ${i.qty} x Rs.${i.price}`).join('\n');
+  let row = `<tr>
+    <td>${o.date}</td>
+    <td><b>${o.customerName}</b></td>
+    <td>${o.phone}</td>
+    <td class="product-col">${productsText}</td>
+    <td><b>Rs.${o.total}</b></td>
+  </tr>`;
+  table.innerHTML += row;
+});
+
+function clearOrders(){ if(confirm('All orders delete pannava?')){ localStorage.removeItem('amOrders'); location.reload(); } }
+
+function exportCSV(){
+  let csv = "Date,Customer Name,Phone,Product List,Total\n";
+  orders.forEach(o => {
+    let prods = o.items.map(i => `${i.name} (${i.qty})`).join(' | ').replace(/,/g,' ');
+    csv += `"${o.date}","${o.customerName}","${o.phone}","${prods}","${o.total}"\n`;
+  });
+  let blob = new Blob([csv], {type:'text/csv'});
+  let a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'am-dairy-orders.csv'; a.click();
+}
+</script>
+</body>
+</html>

@@ -137,41 +137,65 @@ function selA(el,n){
 }
 
 function getData(){
-  if(tot==0){ alert('🥛 Product select pannu da - + button click pannu!'); return null; }
+  if(tot==0){ alert('🥛 Please  select product - + button'); return null; }
   let nm=document.getElementById('cname').value.trim();
   let ph=document.getElementById('cph').value.trim();
-  if(!nm||!ph){ alert('Name Phone fill pannu da'); return null; }
-  if(!selArea){ alert('Area select pannu da'); return null; }
-  return {name:nm, phone:ph, total:tot, area:selArea};
+  if(!nm||!ph){ alert('Name Phone fill panuga'); return null; }
+  if(!selArea){ alert('Area select pannuga'); return null; }
+  return {name:nm, phone:ph, total:tot, area:selArea, items:cart, date:new Date().toLocaleString()};
 }
 
 function payUPI(){
-  if(tot==0){ window.location.href=`upi://pay?pa=arulkumarfly@oksbi&pn=AM DAIRY&cu=INR`; return; }
+  if(tot==0){ window.location.href=`upi://pay?pa=arulkumarfly-2@oksbi&pn=AM DAIRY&cu=INR`; return; }
   let d=getData(); if(!d) return;
-  window.location.href=`upi://pay?pa=arulkumarfly@oksbi&pn=AM DAIRY JEDARPALAYAM&am=${d.total}&cu=INR`;
+  window.location.href=`upi://pay?pa=arulkumarfly-2@oksbi&pn=AM DAIRY JEDARPALAYAM&am=${d.total}&cu=INR`;
 }
 
 async function bookWA(){
-  let d=getData(); if(!d) return;
+  let d = getData();
+  if(!d) return;
+
+  // Product list ready pannu da - column ku
+  let cartItems = [];
+  // un cart variable edhuvum iruntha eduthukkum
+  if(typeof cart !== 'undefined' && cart.length) cartItems = cart;
+  else if(typeof items !== 'undefined' && items.length) cartItems = items;
+  else cartItems = [{name:'Milk', qty:1, price:d.total}]; // fallback
+
+  // Product column ah string ah maathu
+  let prodStr = cartItems.map((it,i) => `${i+1}. ${it.name} - ${it.qty} x Rs.${it.price}`).join('%0A');
+  let prodForSave = cartItems.map(it => `${it.name} (${it.qty})`).join(' | ');
+
+  // Order data with product list
   let orderData = {
-    name: d.name, phone: d.phone, area: d.area,
-    door: document.getElementById('door').value,
+    name: d.name,
+    phone: d.phone,
+    area: d.area,
     total: d.total,
-    items: document.getElementById('bill').innerText
+    items: cartItems,
+    date: new Date().toLocaleString()
   };
+
+  // Local list la save pannu da - idhu than column table ku
+  let allOrders = JSON.parse(localStorage.getItem('amOrders') || '[]');
+  allOrders.push(orderData);
+  localStorage.setItem('amOrders', JSON.stringify(allOrders));
+
   try{
-    let res = await fetch('http://localhost:3000/api/order',{
+    let res = await fetch('http://localhost:3000/api/order', {
       method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify(orderData)
     });
     let data = await res.json();
-    alert('Order Placed! ID: ' + (data.id || data.orderId || data.order?.id || 'Saved'))
+    alert('Order Placed! ID: ' + (data.id || data.orderId || 'OK'));
   }catch(e){
     console.log('Backend off:', e);
-    alert('⚠️ Backend OFF la irukku - CMD la npm start pannu da, ippo WhatsApp mattum pogum');
+    // Backend off na kooda paravala - local la save aayiduchu da
   }
-  let m=`AM DAIRY BOOKING%0AName:${d.name}%0APh:${d.phone}%0AArea:${d.area} ${orderData.door}%0AItems:%0A${orderData.items}%0ATotal Rs.${d.total}`;
-  window.open('https://wa.me/919524453822?text='+m,'_blank');
+
+  // WhatsApp - Column pottu proper ah
+  let m=`AM DAIRY BOOKING%0A%0AName:${d.name}%0APh:${d.phone}%0AArea:${d.area}%0ADate:${orderData.date}%0A----------------%0A*PRODUCTS:*%0A${prodStr}%0A----------------%0A*TOTAL: Rs.${d.total}*`;
+  window.open('https://wa.me/919524453822?text='+m, '_blank');
 }
 
 // PAGE LOAD AANA UDAANE PRODUCT VARANUM DA
