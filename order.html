@@ -1,59 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>AM Dairy - Orders List</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AM Dairy - Customer List</title>
 <style>
-body{font-family:Arial;padding:10px}
-table{width:100%;border-collapse:collapse;margin-top:10px}
-th,td{border:1px solid #333;padding:8px;font-size:14px;text-align:left}
+body{font-family:Arial;padding:10px;background:#f9f9f9}
+h2{text-align:center;color:#16a34a}
+table{width:100%;border-collapse:collapse;background:white}
+th,td{border:1px solid #333;padding:8px;font-size:13px;text-align:left}
 th{background:#16a34a;color:white}
-.product-col{white-space:pre-line}
-@media print{button{display:none}}
+td{vertical-align:top}
+.btn{padding:10px 15px;border:none;color:white;margin:5px;cursor:pointer;border-radius:5px}
+.print{background:#16a34a}.excel{background:#2563eb}.clear{background:#dc2626}
+@media print{.btn{display:none}}
 </style>
 </head>
 <body>
-<h2>AM DAIRY - Customer Orders</h2>
-<button onclick="window.print()" style="padding:10px;background:green;color:white;border:none">🖨️ Print List</button>
-<button onclick="clearOrders()" style="padding:10px;background:red;color:white;border:none">Clear All</button>
-<button onclick="exportCSV()" style="padding:10px;background:blue;color:white;border:none">📥 Excel Download</button>
+<h2>AM DAIRY - Customer Order List 🥛</h2>
+<button class="btn print" onclick="window.print()">🖨️ Print</button>
+<button class="btn excel" onclick="exportCSV()">📥 Excel</button>
+<button class="btn clear" onclick="clearOrders()">🗑️ Clear</button>
 
-<table id="orderTable">
-<tr>
-<th>Date</th>
-<th>Customer Name</th>
-<th>Phone Number</th>
-<th>Product List (Column)</th>
-<th>Total</th>
-</tr>
+<table id="tbl">
+<tr><th>Date</th><th>Customer Name</th><th>Phone</th><th>Area</th><th>Product List (Column)</th><th>Total</th></tr>
 </table>
 
 <script>
-let orders = JSON.parse(localStorage.getItem('amOrders') || '[]');
-let table = document.getElementById('orderTable');
-
-orders.reverse().forEach(o => {
-  let productsText = o.items.map(i => `${i.name} - ${i.qty} x Rs.${i.price}`).join('\n');
-  let row = `<tr>
-    <td>${o.date}</td>
-    <td><b>${o.customerName}</b></td>
-    <td>${o.phone}</td>
-    <td class="product-col">${productsText}</td>
-    <td><b>Rs.${o.total}</b></td>
-  </tr>`;
-  table.innerHTML += row;
+let orders = JSON.parse(localStorage.getItem('amOrders')||'[]');
+let tbl = document.getElementById('tbl');
+if(orders.length==0){ tbl.innerHTML += `<tr><td colspan=6 style="text-align:center">No Orders Yet</td></tr>` }
+orders.slice().reverse().forEach(o=>{
+  let prods = (o.items||[]).map(i=>`${i.name} - Qty:${i.qty} - Rs.${i.price}`).join('<br>');
+  tbl.innerHTML += `<tr><td>${o.date||''}</td><td><b>${o.name||''}</b></td><td>${o.phone||''}</td><td>${o.area||''}</td><td>${prods}</td><td><b>Rs.${o.total||0}</b></td></tr>`;
 });
-
-function clearOrders(){ if(confirm('All orders delete pannava?')){ localStorage.removeItem('amOrders'); location.reload(); } }
-
+function clearOrders(){ if(confirm('All delete pannava?')){ localStorage.removeItem('amOrders'); location.reload(); } }
 function exportCSV(){
-  let csv = "Date,Customer Name,Phone,Product List,Total\n";
-  orders.forEach(o => {
-    let prods = o.items.map(i => `${i.name} (${i.qty})`).join(' | ').replace(/,/g,' ');
-    csv += `"${o.date}","${o.customerName}","${o.phone}","${prods}","${o.total}"\n`;
+  let csv="Date,Customer Name,Phone,Area,Product List,Total\n";
+  orders.forEach(o=>{
+    let p=(o.items||[]).map(i=>`${i.name} (${i.qty})`).join(' | ').replace(/,/g,' ');
+    csv+=`"${o.date}","${o.name}","${o.phone}","${o.area}","${p}","${o.total}"\n`;
   });
-  let blob = new Blob([csv], {type:'text/csv'});
-  let a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'am-dairy-orders.csv'; a.click();
+  let a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download='am-dairy-orders.csv'; a.click();
 }
 </script>
 </body>
