@@ -88,6 +88,18 @@ let P=[
 ];
 let Q={},S={},selArea='',tot=0;
 P.forEach(x=>{Q[x.k]=0;S[x.k]=0});
+function setArea(area){
+  selArea = area;
+  console.log("Selected area: " + selArea);
+  // Ellam area va normal aakku
+  document.querySelectorAll('.opt').forEach(function(el){
+    el.style.background = "white";
+  });
+  // Click pannatha mattum green aakku
+  if(window.event){
+    window.event.currentTarget.style.background = "#bbf7d0";
+  }
+}
 
 function draw(){
   let plist = document.getElementById('plist');
