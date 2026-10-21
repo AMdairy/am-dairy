@@ -47,22 +47,29 @@
 </div>
 
 <div class="card">
-<div style="font-weight:bold;color:#16a34a;font-size:18px;margin-bottom:10px">📝 Customer Booking - 6 Areas</div>
+<div style="font-weight:bold;color:#16a34a;font-size:18px;margin-bottom:10px">📝 Customer Booking - 7 Areas</div>
 <input class="inp" id="cname" placeholder="👤 Name *">
 <input class="inp" id="cph" placeholder="📞 Phone *">
 
-<div style="font-weight:bold;margin-top:12px;color:#16a34a">🥛 Product List - Ithu than da varala sonna!</div>
+<div style="font-weight:bold;margin-top:12px;color:#16a34a">🥛 Product List -</div>
 <div id="plist" style="margin-top:8px">Loading products...</div>
 
-<div style="font-weight:bold;margin-top:14px">📍 6 Pickup Area *</div>
-<div>
-<div class="opt" onclick="selA(this,'Jedarpalayam Main')">1️⃣ Jedarpalayam Main</div>
-<div class="opt" onclick="selA(this,'EB Office Area')">2️⃣ EB Office Area</div>
-<div class="opt" onclick="selA(this,'Boyar Street')">3️⃣ Boyar Street</div>
-<div class="opt" onclick="selA(this,'Indian Bank Street')">4️⃣ Indian Bank Street</div>
-<div class="opt" onclick="selA(this,'Vinayagar Kovil Street')">5️⃣ Vinayagar Kovil Street</div>
-<div class="opt" onclick="selA(this,'Vinayagar Kovil Opposite')">6️⃣ Vinayagar Kovil Opposite</div>
-</div>
+<div style="font-weight:bold;margin-top:14px">📍 7 Pickup Area *</div>
+<div style="margin-top:14px">📍 7 Pickup Area *</div>
+
+<div class="opt" onclick="setArea('Jedarpalayam Main')"><span style="background:#16a34a;color:white;padding:2px 7px;border-radius:4px;margin-right:6px">1</span> Jedarpalayam Main</div>
+
+<div class="opt" onclick="setArea('Jedarpalayam police station')"><span style="background:#16a34a;color:white;padding:2px 7px;border-radius:4px;margin-right:6px">2</span> Jedarpalayam police station</div>
+
+<div class="opt" onclick="setArea('EB Office Area')"><span style="background:#16a34a;color:white;padding:2px 7px;border-radius:4px;margin-right:6px">3</span> EB Office Area</div>
+
+<div class="opt" onclick="setArea('Boyar Street')"><span style="background:#16a34a;color:white;padding:2px 7px;border-radius:4px;margin-right:6px">4</span> Boyar Street</div>
+
+<div class="opt" onclick="setArea('Indian Bank Street')"><span style="background:#16a34a;color:white;padding:2px 7px;border-radius:4px;margin-right:6px">5</span> Indian Bank Street</div>
+
+<div class="opt" onclick="setArea('Vinayagar Kovil Street')"><span style="background:#16a34a;color:white;padding:2px 7px;border-radius:4px;margin-right:6px">6</span> Vinayagar Kovil Street</div>
+
+<div class="opt" onclick="setArea('Vinayagar Kovil Opposite')"><span style="background:#16a34a;color:white;padding:2px 7px;border-radius:4px;margin-right:6px">7</span> Vinayagar Kovil Opposite</div>
 <input class="inp" id="door" placeholder="🏠 Door No / Landmark">
 <div id="bill" style="background:#f0fdf4;padding:10px;border-radius:8px;margin-top:10px;border:1.5px solid #16a34a">No items</div>
 <div id="tot" style="font-weight:bold;color:#16a34a;font-size:20px;margin:10px 0">Total Rs.0</div>
