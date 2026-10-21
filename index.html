@@ -71,11 +71,10 @@
 
 <div class="opt" onclick="setArea('Vinayagar Kovil Opposite')"><span style="background:#16a34a;color:white;padding:2px 7px;border-radius:4px;margin-right:6px">7</span> Vinayagar Kovil Opposite</div>
 <input class="inp" id="door" placeholder="🏠 Door No / Landmark">
-<div id="bill" style="background:#f0fdf4;padding:10px;border-radius:8px;margin-top:10px;border:1.5px solid #16a34a">No items</div>
+<div id="bill" style="background:#f0fdf4;padding:10px;border-radius:8px;margin-top:10px;border:1.5px solid #16a34a">"No item selected"</div>
 <div id="tot" style="font-weight:bold;color:#16a34a;font-size:20px;margin:10px 0">Total Rs.0</div>
 <button class="btn" onclick="bookWA()">💬 BOOK ON WHATSAPP + SAVE TO BACKEND</button>
 </div>
-
 </div>
 
 <script>
@@ -133,7 +132,7 @@ function upd(){
   document.getElementById('tot').innerText='Total Rs.'+t;
   document.getElementById('qAmt').innerText='Total Rs.'+t+' - Scan to Pay';
   tot=t;
-  let upi=`upi://pay?pa=arulkumarfly@oksbi&pn=AM DAIRY JEDARPALAYAM&am=${t}&cu=INR`;
+  let upi=`upi://pay?pa=arulkumarfly-2@oksbi&pn=AM DAIRY JEDARPALAYAM&am=${t}&cu=INR`;
   document.getElementById('qr').src=`https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${encodeURIComponent(upi)}`;
 }
 
