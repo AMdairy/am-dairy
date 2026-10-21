@@ -50,10 +50,8 @@
 <div style="font-weight:bold;color:#16a34a;font-size:18px;margin-bottom:10px">📝 Customer Booking - 7 Areas</div>
 <input class="inp" id="cname" placeholder="👤 Name *">
 <input class="inp" id="cph" placeholder="📞 Phone *">
-
 <div style="font-weight:bold;margin-top:12px;color:#16a34a"> Product List </div>
 <div style="font-weight:bold;margin-top:14px">📍 7 Pickup Area *</div>
-
 <div class="opt" onclick="setArea('Jedarpalayam Main')"><span style="background:#16a34a;color:white;padding:2px 7px;border-radius:4px;margin-right:6px">1</span> Jedarpalayam Main</div>
 
 <div class="opt" onclick="setArea('Jedarpalayam police station')"><span style="background:#16a34a;color:white;padding:2px 7px;border-radius:4px;margin-right:6px">2</span> Jedarpalayam police station</div>
@@ -80,9 +78,9 @@ let P=[
 {n:'Cow Milk 🐄',k:'cow',o:[{l:'200ml',p:13},{l:'500ml',p:30}]},
 {n:'Buffalo Milk 🐃',k:'buf',o:[{l:'200ml',p:17},{l:'500ml',p:40}]},
 {n:'Curd 🥛',k:'curd',o:[{l:'200ml',p:20},{l:'500ml',p:40}]},
-{n:'Ghee 🧈',k:'ghee',o:[{l:'50ml',p:47},{l:'100ml',p:85},{l:'200ml',p:160}{l:'500ml',p:365}]},
+{n:'Ghee 🧈',k:'ghee',o:[{l:'50ml',p:47},{l:'100ml',p:85},{l:'200ml',p:160},{l:'500ml',p:365}]},
 {n:'Buttermilk 🥤',k:'buttermilk',o:[{l:'500ml',p:20},{l:'1L',p:40}]},
-{n:'Butter 🧈',k:'butter',o:[{l:'200g',p:100},{l:'500g',p:250},{l:'1kg',p:480}]}
+{n:'Butter 🧈',k:'butter',o:[{l:'200g',p:100},{l:'500g',p:250},{l:'1kg',p:500}]}
 ];
 let Q={},S={},selArea='',tot=0;
 P.forEach(x=>{Q[x.k]=0;S[x.k]=0});
