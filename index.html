@@ -128,7 +128,7 @@ function upd(){
       txt+=`${x.n} ${x.o[S[x.k]].l} x${qty} = Rs.${sub}<br>`;
     }
   });
-  document.getElementById('bill').innerHTML=txt||'No items - Product select pannu da';
+  document.getElementById('bill').innerHTML=txt||'No items selected';
   document.getElementById('tot').innerText='Total Rs.'+t;
   document.getElementById('qAmt').innerText='Total Rs.'+t+' - Scan to Pay';
   tot=t;
