@@ -25,6 +25,11 @@
 .sel{padding:6px;border:1.5px solid #16a34a;border-radius:8px;color:#16a34a;font-weight:bold}
 </style>
 </head>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js');
+}
+</script>
 <body>
 
 <div class="hdr">
