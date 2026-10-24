@@ -58,49 +58,84 @@ if ('serviceWorker' in navigator) {
 <input class="inp" id="cname" placeholder="👤 Name *">
 <input class="inp" id="cph" placeholder="📞 Phone *">
 <div style="font-weight:bold;margin-top:12px;color:#16a34a"> Product List </div>
-<!-- AM DAIRY - FINAL PRICE LIST -->
-<!-- AM DAIRY - SELECTABLE SCROLL PRODUCT LIST -->
+<!-- AM DAIRY - INTHA MAATHIRI VARANUM - SCROLL + SELECT -->
 <div style="margin:20px 12px;">
-<h3 style="color:#15803d; font-weight:900; font-size:20px;">🥛 Select Product</h3>
+<h3 style="color:#15803d; font-weight:900; font-size:18px;">🥛 Product List - Select Pannu</h3>
 
-<!-- DROPDOWN SCROLL -->
-<select id="productSelect" style="width:100%; padding:14px; border-radius:12px; border:1.5px solid #15803d; font-size:15px; font-weight:600; background:white; margin-top:10px;">
-<option value="">-- Product Select Pannu --</option>
-<option value="Cow Milk 200ml - ₹13">🐄 Cow Milk 200ml - ₹13</option>
-<option value="Cow Milk 500ml - ₹30">🐄 Cow Milk 500ml - ₹30</option>
-<option value="Buffalo Milk 200ml - ₹17">🐃 Buffalo Milk 200ml - ₹17</option>
-<option value="Buffalo Milk 500ml - ₹40">🐃 Buffalo Milk 500ml - ₹40</option>
-<option value="Curd 200ml - ₹15">🥣 Curd 200ml - ₹15</option>
-<option value="Curd 500ml - ₹40">🥣 Curd 500ml - ₹40</option>
-<option value="Butter 200g - ₹100">🧈 Butter 200g - ₹100</option>
-<option value="Butter 1kg - ₹500">🧈 Butter 1kg - ₹500</option>
-<option value="Buttermilk 500ml - ₹20">🥛 Buttermilk 500ml - ₹20</option>
-<option value="Buttermilk 1L - ₹40">🥛 Buttermilk 1L - ₹40</option>
-<option value="Ghee 50ml - ₹50">🧈 Ghee 50ml - ₹50</option>
-<option value="Ghee 100ml - ₹85">🧈 Ghee 100ml - ₹85</option>
-<option value="Ghee 200ml - ₹150">🧈 Ghee 200ml - ₹150</option>
-<option value="Ghee 500ml - ₹365">🧈 Ghee 500ml - ₹365</option>
-</select>
+<div style="height:320px; overflow-y:auto; border:1px solid #e5e7eb; border-radius:14px; padding:10px; background:#fafafa; margin-top:10px; display:grid; gap:10px;">
 
-<!-- SELECTED PRODUCT SHOW -->
-<div id="selectedBox" style="margin-top:15px; padding:12px; background:#f0fdf4; border-radius:10px; display:none; border:1px solid #bbf7d0;">
-<b>Selected:</b> <span id="selectedText" style="color:#15803d;"></span>
+<label style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white; display:flex; justify-content:space-between; cursor:pointer;">
+<span><input type="checkbox" value="Cow Milk 200ml ₹13" style="margin-right:8px;"><b>🐄 Cow Milk</b><br><small style="margin-left:22px;">200ml - ₹13</small></span>
+<span style="color:#15803d; font-weight:bold;">₹13</span>
+</label>
+
+<label style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white; display:flex; justify-content:space-between; cursor:pointer;">
+<span><input type="checkbox" value="Cow Milk 500ml ₹30" style="margin-right:8px;"><b>🐄 Cow Milk</b><br><small style="margin-left:22px;">500ml - ₹30</small></span>
+<span style="color:#15803d; font-weight:bold;">₹30</span>
+</label>
+
+<label style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white; display:flex; justify-content:space-between; cursor:pointer;">
+<span><input type="checkbox" value="Buffalo Milk 200ml ₹17" style="margin-right:8px;"><b>🐃 Buffalo Milk</b><br><small style="margin-left:22px;">200ml - ₹17</small></span>
+<span style="color:#15803d; font-weight:bold;">₹17</span>
+</label>
+
+<label style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white; display:flex; justify-content:space-between; cursor:pointer;">
+<span><input type="checkbox" value="Buffalo Milk 500ml ₹40" style="margin-right:8px;"><b>🐃 Buffalo Milk</b><br><small style="margin-left:22px;">500ml - ₹40</small></span>
+<span style="color:#15803d; font-weight:bold;">₹40</span>
+</label>
+
+<label style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white; display:flex; justify-content:space-between; cursor:pointer;">
+<span><input type="checkbox" value="Curd 200ml ₹15" style="margin-right:8px;"><b>🥣 Curd</b><br><small style="margin-left:22px;">200ml - ₹15</small></span>
+<span style="color:#15803d; font-weight:bold;">₹15</span>
+</label>
+
+<label style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white; display:flex; justify-content:space-between; cursor:pointer;">
+<span><input type="checkbox" value="Curd 500ml ₹40" style="margin-right:8px;"><b>🥣 Curd</b><br><small style="margin-left:22px;">500ml - ₹40</small></span>
+<span style="color:#15803d; font-weight:bold;">₹40</span>
+</label>
+
+<label style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white; display:flex; justify-content:space-between; cursor:pointer;">
+<span><input type="checkbox" value="Butter 200g ₹100" style="margin-right:8px;"><b>🧈 Butter</b><br><small style="margin-left:22px;">200g - ₹100</small></span>
+<span style="color:#15803d; font-weight:bold;">₹100</span>
+</label>
+
+<label style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white; display:flex; justify-content:space-between; cursor:pointer;">
+<span><input type="checkbox" value="Butter 1kg ₹500" style="margin-right:8px;"><b>🧈 Butter 1kg</b><br><small style="margin-left:22px;">1kg</small></span>
+<span style="color:#15803d; font-weight:bold;">₹500</span>
+</label>
+
+<label style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white; display:flex; justify-content:space-between; cursor:pointer;">
+<span><input type="checkbox" value="Buttermilk 500ml ₹20" style="margin-right:8px;"><b>🥛 Buttermilk</b><br><small style="margin-left:22px;">500ml - ₹20</small></span>
+<span style="color:#15803d; font-weight:bold;">₹20</span>
+</label>
+
+<label style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white; display:flex; justify-content:space-between; cursor:pointer;">
+<span><input type="checkbox" value="Buttermilk 1L ₹40" style="margin-right:8px;"><b>🥛 Buttermilk</b><br><small style="margin-left:22px;">1L - ₹40</small></span>
+<span style="color:#15803d; font-weight:bold;">₹40</span>
+</label>
+
+<label style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white; display:flex; justify-content:space-between; cursor:pointer;">
+<span><input type="checkbox" value="Ghee 50ml ₹50" style="margin-right:8px;"><b>🧈 Ghee 50ml</b></span>
+<span style="color:#15803d; font-weight:bold;">₹50</span>
+</label>
+
+<label style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white; display:flex; justify-content:space-between; cursor:pointer;">
+<span><input type="checkbox" value="Ghee 100ml ₹85" style="margin-right:8px;"><b>🧈 Ghee 100ml</b></span>
+<span style="color:#15803d; font-weight:bold;">₹85</span>
+</label>
+
+<label style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white; display:flex; justify-content:space-between; cursor:pointer;">
+<span><input type="checkbox" value="Ghee 200ml ₹150" style="margin-right:8px;"><b>🧈 Ghee 200ml</b></span>
+<span style="color:#15803d; font-weight:bold;">₹150</span>
+</label>
+
+<label style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white; display:flex; justify-content:space-between; cursor:pointer;">
+<span><input type="checkbox" value="Ghee 500ml ₹365" style="margin-right:8px;"><b>🧈 Ghee 500ml</b></span>
+<span style="color:#15803d; font-weight:bold;">₹365</span>
+</label>
+
 </div>
-
 </div>
-
-<script>
-document.getElementById('productSelect').addEventListener('change', function(){
-let box = document.getElementById('selectedBox');
-let text = document.getElementById('selectedText');
-if(this.value){
-box.style.display='block';
-text.innerText = this.value;
-} else {
-box.style.display='none';
-}
-});
-</script>
 <div style="font-weight:bold;margin-top:14px">📍 7 Pickup Area *</div>
 <div class="opt" onclick="setArea('Jedarpalayam Main')"><span style="background:#16a34a;color:white;padding:2px 7px;border-radius:4px;margin-right:6px">1</span> Jedarpalayam Main</div>
 
