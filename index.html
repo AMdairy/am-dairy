@@ -59,63 +59,48 @@ if ('serviceWorker' in navigator) {
 <input class="inp" id="cph" placeholder="📞 Phone *">
 <div style="font-weight:bold;margin-top:12px;color:#16a34a"> Product List </div>
 <!-- AM DAIRY - FINAL PRICE LIST -->
+<!-- AM DAIRY - SELECTABLE SCROLL PRODUCT LIST -->
 <div style="margin:20px 12px;">
-<h3 style="color:#15803d; font-weight:900; font-size:20px;">🥛 AM Dairy Products</h3>
+<h3 style="color:#15803d; font-weight:900; font-size:20px;">🥛 Select Product</h3>
 
-<div style="display:grid; gap:10px; margin-top:12px;">
+<!-- DROPDOWN SCROLL -->
+<select id="productSelect" style="width:100%; padding:14px; border-radius:12px; border:1.5px solid #15803d; font-size:15px; font-weight:600; background:white; margin-top:10px;">
+<option value="">-- Product Select Pannu --</option>
+<option value="Cow Milk 200ml - ₹13">🐄 Cow Milk 200ml - ₹13</option>
+<option value="Cow Milk 500ml - ₹30">🐄 Cow Milk 500ml - ₹30</option>
+<option value="Buffalo Milk 200ml - ₹17">🐃 Buffalo Milk 200ml - ₹17</option>
+<option value="Buffalo Milk 500ml - ₹40">🐃 Buffalo Milk 500ml - ₹40</option>
+<option value="Curd 200ml - ₹15">🥣 Curd 200ml - ₹15</option>
+<option value="Curd 500ml - ₹40">🥣 Curd 500ml - ₹40</option>
+<option value="Butter 200g - ₹100">🧈 Butter 200g - ₹100</option>
+<option value="Butter 1kg - ₹500">🧈 Butter 1kg - ₹500</option>
+<option value="Buttermilk 500ml - ₹20">🥛 Buttermilk 500ml - ₹20</option>
+<option value="Buttermilk 1L - ₹40">🥛 Buttermilk 1L - ₹40</option>
+<option value="Ghee 50ml - ₹50">🧈 Ghee 50ml - ₹50</option>
+<option value="Ghee 100ml - ₹85">🧈 Ghee 100ml - ₹85</option>
+<option value="Ghee 200ml - ₹150">🧈 Ghee 200ml - ₹150</option>
+<option value="Ghee 500ml - ₹365">🧈 Ghee 500ml - ₹365</option>
+</select>
 
-<div style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white;">
-<b>🐄 Cow Milk</b>
-<div style="margin-top:6px; display:flex; gap:15px; font-size:13px;">
-<span>200ml - <b style="color:#15803d;">₹13</b></span>
-<span>500ml - <b style="color:#15803d;">₹30</b></span>
-</div>
-</div>
-
-<div style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white;">
-<b>🐃 Buffalo Milk</b>
-<div style="margin-top:6px; display:flex; gap:15px; font-size:13px;">
-<span>200ml - <b style="color:#15803d;">₹17</b></span>
-<span>500ml - <b style="color:#15803d;">₹40</b></span>
-</div>
-</div>
-
-<div style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white;">
-<b>🥣 Curd</b>
-<div style="margin-top:6px; display:flex; gap:15px; font-size:13px;">
-<span>200ml - <b style="color:#15803d;">₹15</b></span>
-<span>500ml - <b style="color:#15803d;">₹40</b></span>
-</div>
-</div>
-
-<div style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white;">
-<b>🧈 Butter</b>
-<div style="margin-top:6px; display:flex; gap:15px; font-size:13px;">
-<span>200g - <b style="color:#15803d;">₹100</b></span>
-<span>1kg - <b style="color:#15803d;">₹500</b></span>
-</div>
-</div>
-
-<div style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white;">
-<b>🥛 Buttermilk</b>
-<div style="margin-top:6px; display:flex; gap:15px; font-size:13px;">
-<span>500ml - <b style="color:#15803d;">₹20</b></span>
-<span>1L - <b style="color:#15803d;">₹40</b></span>
-</div>
-</div>
-
-<div style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white;">
-<b>🧈 Ghee</b>
-<div style="margin-top:6px; display:grid; grid-template-columns:1fr 1fr; gap:6px; font-size:13px;">
-<span>50ml - <b style="color:#15803d;">₹50</b></span>
-<span>100ml - <b style="color:#15803d;">₹85</b></span>
-<span>200ml - <b style="color:#15803d;">₹150</b></span>
-<span>500ml - <b style="color:#15803d;">₹365</b></span>
-</div>
+<!-- SELECTED PRODUCT SHOW -->
+<div id="selectedBox" style="margin-top:15px; padding:12px; background:#f0fdf4; border-radius:10px; display:none; border:1px solid #bbf7d0;">
+<b>Selected:</b> <span id="selectedText" style="color:#15803d;"></span>
 </div>
 
 </div>
-</div>
+
+<script>
+document.getElementById('productSelect').addEventListener('change', function(){
+let box = document.getElementById('selectedBox');
+let text = document.getElementById('selectedText');
+if(this.value){
+box.style.display='block';
+text.innerText = this.value;
+} else {
+box.style.display='none';
+}
+});
+</script>
 <div style="font-weight:bold;margin-top:14px">📍 7 Pickup Area *</div>
 <div class="opt" onclick="setArea('Jedarpalayam Main')"><span style="background:#16a34a;color:white;padding:2px 7px;border-radius:4px;margin-right:6px">1</span> Jedarpalayam Main</div>
 
