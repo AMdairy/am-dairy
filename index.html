@@ -1,315 +1,119 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<<link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#15803d">
-<title>AM DAIRY JEDARPALAYAM</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AM DAIRY - Fresh Milk Delivery</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}body{background:#f0fdf4}
-.hdr{background:#16a34a;color:#fff;padding:12px;display:flex;gap:10px;align-items:center;position:sticky;top:0;z-index:99}
-.logo-h{width:55px;height:55px;border-radius:50%;border:2px solid #fff;background:#fff;object-fit:cover}
-.page{max-width:520px;margin:auto;padding:10px}
-.shop{border:2.5px dashed #f59e0b;border-radius:16px;padding:22px;background:#FFFEF7;text-align:center;margin:12px 0}
-.logo-big{width:135px;height:135px;border-radius:50%;border:3.5px solid #16a34a;background:#fff;object-fit:cover;margin:0 auto 12px;display:block}
-.card{background:#fff;padding:14px;border-radius:14px;margin:10px 0;box-shadow:0 2px 8px #0001}
-.qrbox{background:#fff;border:2px solid #16a34a;border-radius:14px;padding:14px;text-align:center}
-.inp{width:100%;padding:12px;margin:6px 0;border:1.5px solid #ccc;border-radius:9px;font-size:15px}
-.btn{width:100%;padding:13px;background:#16a34a;color:#fff;border:0;border-radius:10px;font-weight:bold;margin-top:8px;cursor:pointer;font-size:16px}
-.btn-pay{background:#5a4fcf}
-.opt{padding:10px;border:1.5px solid #ddd;border-radius:9px;margin:6px 0;cursor:pointer;background:#fff}
-.opt.on{border-color:#16a34a;background:#f0fdf4;color:#16a34a;font-weight:bold}
-.qrow{display:flex;gap:8px;align-items:center;margin:8px 0;background:#f9f9f9;padding:8px;border-radius:8px}
-.qb{width:36px;height:36px;border:0;background:#16a34a;color:#fff;border-radius:50%;font-size:18px;font-weight:bold;cursor:pointer}
-.sel{padding:6px;border:1.5px solid #16a34a;border-radius:8px;color:#16a34a;font-weight:bold}
+body{font-family:system-ui,sans-serif;margin:0;background:#f9fafb;color:#111}
+.header{background:#15803d;color:white;padding:12px;text-align:center;font-weight:800;font-size:14px}
+.container{max-width:500px;margin:0 auto;padding:12px}
+.card{border:1px solid #e5e7eb;padding:12px;border-radius:12px;background:white;display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.scroll-box{height:380px;overflow-y:auto;border:1px solid #e5e7eb;border-radius:14px;padding:10px;background:#fafafa}
+.qty-btn{width:32px;height:32px;border-radius:50%;border:1.5px solid #15803d;background:white;font-weight:bold;cursor:pointer}
+.sel{padding:4px 8px;border-radius:6px;border:1px solid #d1d5db;font-size:12px}
+.bill-box{background:white;border:2px solid #15803d;border-radius:12px;padding:14px;margin-top:14px}
+#qrImg{display:block;margin:10px auto;border:2px solid #15803d;border-radius:10px;padding:6px;background:white}
 </style>
 </head>
-<script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js');
-}
-</script>
 <body>
+<div class="header">📞 95244 53822 | ⏰ 5:30AM-8AM 5PM-8PM | AM DAIRY</div>
+<div class="container">
+<h3 style="color:#15803d;margin:8px 0;">🥛 AM Dairy Products - Select Quantity</h3>
+<div class="scroll-box" id="productList"></div>
 
-<div class="hdr">
-<img src="logo.png" class="logo-h" alt="logo">
-<div><div style="font-weight:bold;font-size:18px">AM DAIRY JEDARPALAYAM</div><div style="font-size:11px">Fresh & Pure 🥛</div></div>
-</div>
-
-<div class="page">
-
-<div class="shop">
-<img src="logo.png" class="logo-big" alt="logo">
-<div style="color:#16a34a;font-weight:bold;font-size:26px">AM DAIRY</div>
-<div style="color:#16a34a;font-weight:bold;font-size:20px">JEDARPALAYAM</div>
-<div style="font-size:15px;color:#222;margin-top:12px;font-weight:bold">📞 95244 53822 | ⏰ 5:30AM-8AM  5PM-8PM</div>
-</div>
-
-<div class="qrbox">
-<div style="font-weight:bold;color:#16a34a;font-size:17px">💳 QR Code - Scan & Pay</div>
-<img id="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=upi://pay?pa=arulkumarfly-2@oksbi&pn=AM%20DAIRY" style="width:210px;height:210px;margin:12px auto;border:3px solid #16a34a;border-radius:12px;padding:6px;background:#fff;display:block">
-<div style="background:#f0fdf4;padding:8px;border-radius:8px;border:1.5px dashed #16a34a;margin-bottom:10px"><b>UPI:</b> arulkumarfly-2@oksbi<br><span id="qAmt" style="color:#16a34a;font-weight:bold">Total Rs.0</span></div>
-<button class="btn btn-pay" onclick="payUPI()">💳 PAY VIA UPI - GPAY / PHONEPE</button>
-</div>
-
-<div class="card">
-<div style="font-weight:bold;color:#16a34a;font-size:18px;margin-bottom:10px">📝 Customer Booking - 7 Areas</div>
-<input class="inp" id="cname" placeholder="👤 Name *">
-<input class="inp" id="cph" placeholder="📞 Phone *">
-<div style="font-weight:bold;margin-top:12px;color:#16a34a"> Product List </div>
-<!-- AM DAIRY - INTHA MAATHIRI VARANUM - SCROLL + SELECT -->
-<div style="margin:20px 12px;">
-<h3 style="color:#15803d; font-weight:900; font-size:18px;">🥛 Product List - Select Pannu</h3>
-
-<div style="height:320px; overflow-y:auto; border:1px solid #e5e7eb; border-radius:14px; padding:10px; background:#fafafa; margin-top:10px; display:grid; gap:10px;">
-
-<label style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white; display:flex; justify-content:space-between; cursor:pointer;">
-<span><input type="checkbox" value="Cow Milk 200ml ₹13" style="margin-right:8px;"><b>🐄 Cow Milk</b><br><small style="margin-left:22px;">200ml - ₹13</small></span>
-<span style="color:#15803d; font-weight:bold;">₹13</span>
-</label>
-
-<label style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white; display:flex; justify-content:space-between; cursor:pointer;">
-<span><input type="checkbox" value="Cow Milk 500ml ₹30" style="margin-right:8px;"><b>🐄 Cow Milk</b><br><small style="margin-left:22px;">500ml - ₹30</small></span>
-<span style="color:#15803d; font-weight:bold;">₹30</span>
-</label>
-
-<label style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white; display:flex; justify-content:space-between; cursor:pointer;">
-<span><input type="checkbox" value="Buffalo Milk 200ml ₹17" style="margin-right:8px;"><b>🐃 Buffalo Milk</b><br><small style="margin-left:22px;">200ml - ₹17</small></span>
-<span style="color:#15803d; font-weight:bold;">₹17</span>
-</label>
-
-<label style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white; display:flex; justify-content:space-between; cursor:pointer;">
-<span><input type="checkbox" value="Buffalo Milk 500ml ₹40" style="margin-right:8px;"><b>🐃 Buffalo Milk</b><br><small style="margin-left:22px;">500ml - ₹40</small></span>
-<span style="color:#15803d; font-weight:bold;">₹40</span>
-</label>
-
-<label style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white; display:flex; justify-content:space-between; cursor:pointer;">
-<span><input type="checkbox" value="Curd 200ml ₹15" style="margin-right:8px;"><b>🥣 Curd</b><br><small style="margin-left:22px;">200ml - ₹15</small></span>
-<span style="color:#15803d; font-weight:bold;">₹15</span>
-</label>
-
-<label style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white; display:flex; justify-content:space-between; cursor:pointer;">
-<span><input type="checkbox" value="Curd 500ml ₹40" style="margin-right:8px;"><b>🥣 Curd</b><br><small style="margin-left:22px;">500ml - ₹40</small></span>
-<span style="color:#15803d; font-weight:bold;">₹40</span>
-</label>
-
-<label style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white; display:flex; justify-content:space-between; cursor:pointer;">
-<span><input type="checkbox" value="Butter 200g ₹100" style="margin-right:8px;"><b>🧈 Butter</b><br><small style="margin-left:22px;">200g - ₹100</small></span>
-<span style="color:#15803d; font-weight:bold;">₹100</span>
-</label>
-
-<label style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white; display:flex; justify-content:space-between; cursor:pointer;">
-<span><input type="checkbox" value="Butter 1kg ₹500" style="margin-right:8px;"><b>🧈 Butter 1kg</b><br><small style="margin-left:22px;">1kg</small></span>
-<span style="color:#15803d; font-weight:bold;">₹500</span>
-</label>
-
-<label style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white; display:flex; justify-content:space-between; cursor:pointer;">
-<span><input type="checkbox" value="Buttermilk 500ml ₹20" style="margin-right:8px;"><b>🥛 Buttermilk</b><br><small style="margin-left:22px;">500ml - ₹20</small></span>
-<span style="color:#15803d; font-weight:bold;">₹20</span>
-</label>
-
-<label style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white; display:flex; justify-content:space-between; cursor:pointer;">
-<span><input type="checkbox" value="Buttermilk 1L ₹40" style="margin-right:8px;"><b>🥛 Buttermilk</b><br><small style="margin-left:22px;">1L - ₹40</small></span>
-<span style="color:#15803d; font-weight:bold;">₹40</span>
-</label>
-
-<label style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white; display:flex; justify-content:space-between; cursor:pointer;">
-<span><input type="checkbox" value="Ghee 50ml ₹50" style="margin-right:8px;"><b>🧈 Ghee 50ml</b></span>
-<span style="color:#15803d; font-weight:bold;">₹50</span>
-</label>
-
-<label style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white; display:flex; justify-content:space-between; cursor:pointer;">
-<span><input type="checkbox" value="Ghee 100ml ₹85" style="margin-right:8px;"><b>🧈 Ghee 100ml</b></span>
-<span style="color:#15803d; font-weight:bold;">₹85</span>
-</label>
-
-<label style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white; display:flex; justify-content:space-between; cursor:pointer;">
-<span><input type="checkbox" value="Ghee 200ml ₹150" style="margin-right:8px;"><b>🧈 Ghee 200ml</b></span>
-<span style="color:#15803d; font-weight:bold;">₹150</span>
-</label>
-
-<label style="border:1px solid #e5e7eb; padding:14px; border-radius:12px; background:white; display:flex; justify-content:space-between; cursor:pointer;">
-<span><input type="checkbox" value="Ghee 500ml ₹365" style="margin-right:8px;"><b>🧈 Ghee 500ml</b></span>
-<span style="color:#15803d; font-weight:bold;">₹365</span>
-</label>
-
+<div class="bill-box">
+<div id="bill" style="font-size:13px;line-height:1.6;color:#333">No items selected</div>
+<hr style="margin:10px 0">
+<div style="font-weight:900;font-size:18px;color:#15803d" id="tot">Total Rs. 0</div>
+<div style="text-align:center;margin-top:12px">
+<div style="font-weight:700;color:#15803d;font-size:13px">💳 QR Code - Scan & Pay</div>
+<img id="qrImg" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=upi%3A%2F%2Fpay%3Fpa%3Darulkumarfly-2%40oksbi%26pn%3DAM%2520DAIRY%26am%3D0%26cu%3DINR" alt="UPI QR" width="200" height="200">
+<div style="font-size:12px;margin:4px 0">UPI: arulkumarfly-2@oksbi</div>
+<div id="qAmt" style="font-size:13px;font-weight:700;color:#15803d;background:#dcfce7;padding:6px;border-radius:6px;display:inline-block">Total Rs.0 - Scan to Pay</div>
+<br><br>
+<a id="payBtn" href="upi://pay?pa=arulkumarfly-2@oksbi&pn=AM DAIRY&am=0&cu=INR" style="background:#3b82f6;color:white;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold;display:inline-block;width:80%;text-align:center">💳 PAY VIA UPI / GPAY / PHONEPE</a>
 </div>
 </div>
-<div style="font-weight:bold;margin-top:14px">📍 7 Pickup Area *</div>
-<div class="opt" onclick="setArea('Jedarpalayam Main')"><span style="background:#16a34a;color:white;padding:2px 7px;border-radius:4px;margin-right:6px">1</span> Jedarpalayam Main</div>
-
-<div class="opt" onclick="setArea('Jedarpalayam police station')"><span style="background:#16a34a;color:white;padding:2px 7px;border-radius:4px;margin-right:6px">2</span> Jedarpalayam police station</div>
-
-<div class="opt" onclick="setArea('EB Office Area')"><span style="background:#16a34a;color:white;padding:2px 7px;border-radius:4px;margin-right:6px">3</span> EB Office Area</div>
-
-<div class="opt" onclick="setArea('Boyar Street')"><span style="background:#16a34a;color:white;padding:2px 7px;border-radius:4px;margin-right:6px">4</span> Boyar Street</div>
-
-<div class="opt" onclick="setArea('Indian Bank Street')"><span style="background:#16a34a;color:white;padding:2px 7px;border-radius:4px;margin-right:6px">5</span> Indian Bank Street</div>
-
-<div class="opt" onclick="setArea('Vinayagar Kovil Street')"><span style="background:#16a34a;color:white;padding:2px 7px;border-radius:4px;margin-right:6px">6</span> Vinayagar Kovil Street</div>
-
-<div class="opt" onclick="setArea('Vinayagar Kovil Opposite')"><span style="background:#16a34a;color:white;padding:2px 7px;border-radius:4px;margin-right:6px">7</span> Vinayagar Kovil Opposite</div>
-<input class="inp" id="door" placeholder="🏠 Door No / Landmark">
-<div id="bill" style="background:#f0fdf4;padding:10px;border-radius:8px;margin-top:10px;border:1.5px solid #16a34a">"No item selected"</div>
-<div id="tot" style="font-weight:bold;color:#16a34a;font-size:20px;margin:10px 0">Total Rs.0</div>
-<button class="btn" onclick="bookWA()">💬 BOOK ON WHATSAPP + SAVE TO BACKEND</button>
-</div>
+<div style="margin-top:12px;color:#15803d;font-size:13px;font-weight:700">📁 Customer Booking - 7 Areas</div>
 </div>
 
 <script>
-// PRODUCT DATA - ITHU MUKKIYAM DA
-let P=[
-{n:'Cow Milk 🐄',k:'cow',o:[{l:'200ml',p:13},{l:'500ml',p:30}]},
-{n:'Buffalo Milk 🐃',k:'buf',o:[{l:'200ml',p:17},{l:'500ml',p:40}]},
-{n:'Curd 🥛',k:'curd',o:[{l:'200ml',p:20},{l:'500ml',p:40}]},
-{n:'Ghee 🧈',k:'ghee',o:[{l:'50ml',p:47},{l:'100ml',p:85},{l:'200ml',p:160},{l:'500ml',p:365}]},
-{n:'Buttermilk 🥤',k:'buttermilk',o:[{l:'500ml',p:20},{l:'1L',p:40}]},
-{n:'Butter 🧈',k:'butter',o:[{l:'200g',p:100},{l:'500g',p:250},{l:'1kg',p:500}]}
+const P = [
+  {k:0, n:"🐄 Cow Milk", o:[{l:"200ml - Rs.13", p:13}, {l:"500ml - Rs.30", p:30}]},
+  {k:1, n:"🐃 Buffalo Milk", o:[{l:"200ml - Rs.17", p:17}, {l:"500ml - Rs.40", p:40}]},
+  {k:2, n:"🥣 Curd", o:[{l:"200ml - Rs.15", p:15}, {l:"500ml - Rs.40", p:40}]},
+  {k:3, n:"🧈 Butter", o:[{l:"200g - Rs.100", p:100}, {l:"1kg - Rs.500", p:500}]},
+  {k:4, n:"🥛 Buttermilk", o:[{l:"500ml - Rs.20", p:20}, {l:"1L - Rs.40", p:40}]},
+  {k:5, n:"🧈 Ghee", o:[{l:"50ml - Rs.50", p:50}, {l:"100ml - Rs.85", p:85}, {l:"200ml - Rs.150", p:150}, {l:"500ml - Rs.365", p:365}]},
 ];
-let Q={},S={},selArea='',tot=0;
-P.forEach(x=>{Q[x.k]=0;S[x.k]=0});
-function setArea(area){
-  selArea = area;
-  console.log("Selected area: " + selArea);
-  // Ellam area va normal aakku
-  document.querySelectorAll('.opt').forEach(function(el){
-    el.style.background = "white";
-  });
-  // Click pannatha mattum green aakku
-  if(window.event){
-    window.event.currentTarget.style.background = "#bbf7d0";
-  }
-}
+let Q = {}; let S = {};
+P.forEach(x=>{ Q[x.k]=0; S[x.k]=0; });
 
-function draw(){
-  let plist = document.getElementById('plist');
-  if(!plist){ console.log('plist not found'); return; }
-  let h='';
-  P.forEach(x=>{
-    let op='';
-    x.o.forEach((o,i)=> op+=`<option value="${i}">${o.l} - Rs.${o.p}</option>`);
-    h+=`<div class="qrow">
-      <span style="flex:1;font-weight:bold;font-size:14px">${x.n}</span>
-      <select class="sel" onchange="S['${x.k}']=this.value;upd()">${op}</select>
-      <button class="qb" onclick="ch('${x.k}',-1)">-</button>
-      <b id="q-${x.k}" style="width:20px;text-align:center">0</b>
-      <button class="qb" onclick="ch('${x.k}',1)">+</button>
-      <span id="s-${x.k}" style="color:#16a34a;font-weight:bold;width:50px;text-align:right">Rs.0</span>
-    </div>`;
-  });
-  plist.innerHTML=h;
-  console.log('Products loaded da!');
-}
-
-function ch(k,d){
-  Q[k]=Math.max(0,Q[k]+d);
-  document.getElementById('q-'+k).innerText=Q[k];
+function cn(k,a){
+  Q[k]=(Q[k]||0)+a;
+  if(Q[k]<0) Q[k]=0;
   upd();
 }
+function selOpt(k, idx){ S[k]=idx; upd(); }
 
 function upd(){
-  let t=0,txt='';
+  let t=0, txt='';
   P.forEach(x=>{
-    let price = x.o[S[x.k]].p;
-    let qty = Q[x.k];
+    let optIdx = S[x.k] ?? 0;
+    let price = x.o[optIdx].p;
+    let qty = Q[x.k] || 0;
     let sub = price*qty;
     let el=document.getElementById('s-'+x.k);
-    if(el) el.innerText='Rs.'+sub;
+    if(el) el.innerText='Rs. '+sub;
     if(qty>0){
       t+=sub;
-      txt+=`${x.n} ${x.o[S[x.k]].l} x${qty} = Rs.${sub}<br>`;
+      txt+=`${x.n} ${x.o[optIdx].l} x${qty} = Rs.${sub}<br>`;
     }
   });
   document.getElementById('bill').innerHTML=txt||'No items selected';
-  document.getElementById('tot').innerText='Total Rs.'+t;
+  document.getElementById('tot').innerText='Total Rs. '+t;
   document.getElementById('qAmt').innerText='Total Rs.'+t+' - Scan to Pay';
-  tot=t;
-  // QR Code & UPI Link Amount Update
-let upiLink = `upi://pay?pa=arulkumarfly-2@oksbi&pn=AM DAIRY JEDARPALAYAM&am=${t}&cu=INR`;
-let qr = document.getElementById('qrImg');
-if(qr) qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(upiLink)}`;
-let payBtn = document.getElementById('payBtn');
-if(payBtn) payBtn.href = upiLink;
-}
-
-function selA(el,n){
-  document.querySelectorAll('.opt').forEach(e=>e.classList.remove('on'));
-  el.classList.add('on');
-  selArea=n;
-}
-
-function getData(){
-  if(tot==0){ alert('🥛 Please  select product - + button'); return null; }
-  let nm=document.getElementById('cname').value.trim();
-  let ph=document.getElementById('cph').value.trim();
-  if(!nm||!ph){ alert('Name Phone fill panuga'); return null; }
-  if(!selArea){ alert('Area select pannuga'); return null; }
-  return {name:nm, phone:ph, total:tot, area:selArea, items:cart, date:new Date().toLocaleString()};
-}
-
-function payUPI(){
-  if(tot==0){ window.location.href=`upi://pay?pa=arulkumarfly-2@oksbi&pn=AM DAIRY&cu=INR`; return; }
-  let d=getData(); if(!d) return;
-  window.location.href=`upi://pay?pa=arulkumarfly-2@oksbi&pn=AM DAIRY JEDARPALAYAM&am=${d.total}&cu=INR`;
-}
-
-async function bookWA(){
-  let d = getData();
-  if(!d) return;
-
-  // Product list ready pannu da - column ku
-  let cartItems = [];
-  // un cart variable edhuvum iruntha eduthukkum
-  if(typeof cart !== 'undefined' && cart.length) cartItems = cart;
-  else if(typeof items !== 'undefined' && items.length) cartItems = items;
-  else cartItems = [{name:'Milk', qty:1, price:d.total}]; // fallback
-
-  // Product column ah string ah maathu
-  let prodStr = cartItems.map((it,i) => `${i+1}. ${it.name} - ${it.qty} x Rs.${it.price}`).join('%0A');
-  let prodForSave = cartItems.map(it => `${it.name} (${it.qty})`).join(' | ');
-
-  // Order data with product list
-  let orderData = {
-    name: d.name,
-    phone: d.phone,
-    area: d.area,
-    total: d.total,
-    items: cartItems,
-    date: new Date().toLocaleString()
-  };
-
-  // Local list la save pannu da - idhu than column table ku
-  let allOrders = JSON.parse(localStorage.getItem('amOrders') || '[]');
-  allOrders.push(orderData);
-  localStorage.setItem('amOrders', JSON.stringify(allOrders));
-
-  try{
-    let res = await fetch('http://localhost:3000/api/order', {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify(orderData)
-    });
-    let data = await res.json();
-    alert('Order Placed! ID: ' + (data.id || data.orderId || 'OK'));
-  }catch(e){
-    console.log('Backend off:', e);
-    // Backend off na kooda paravala - local la save aayiduchu da
+  
+  // QR CODE AMOUNT UPDATE FIX - ITHU THAN MAIN DA
+  let upiLink = `upi://pay?pa=arulkumarfly-2@oksbi&pn=AM DAIRY&am=${t}&cu=INR`;
+  let qr = document.getElementById('qrImg');
+  if(qr){
+    qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(upiLink)}`;
   }
-
-  // WhatsApp - Column pottu proper ah
-  let m=`AM DAIRY BOOKING%0A%0AName:${d.name}%0APh:${d.phone}%0AArea:${d.area}%0ADate:${orderData.date}%0A----------------%0A*PRODUCTS:*%0A${prodStr}%0A----------------%0A*TOTAL: Rs.${d.total}*`;
-  window.open('https://wa.me/919524453822?text='+m, '_blank');
+  let payBtn = document.getElementById('payBtn');
+  if(payBtn) payBtn.href = upiLink;
 }
 
-// PAGE LOAD AANA UDAANE PRODUCT VARANUM DA
-window.onload = function(){
-  draw();
+function render(){
+  let html='';
+  P.forEach(x=>{
+    let opts = x.o.map((o,i)=>`<option value="${i}">${o.l}</option>`).join('');
+    html+=`<div class="card">
+      <div style="flex:1">
+        <div style="font-weight:700;font-size:13px">${x.n}</div>
+        <select class="sel" onchange="selOpt(${x.k}, this.value)">${opts}</select>
+        <div style="font-size:12px;color:#15803d;font-weight:700;margin-top:4px" id="s-${x.k}">Rs. 0</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;margin-left:10px">
+        <button class="qty-btn" onclick="cn(${x.k},-1)">-</button>
+        <span id="q-${x.k}" style="min-width:18px;text-align:center;font-weight:700">${Q[x.k]||0}</span>
+        <button class="qty-btn" onclick="cn(${x.k},1)">+</button>
+      </div>
+    </div>`;
+  });
+  document.getElementById('productList').innerHTML=html;
+  const origUpd = upd;
+  window.upd = function(){
+    origUpd();
+    P.forEach(x=>{
+      let qEl=document.getElementById('q-'+x.k);
+      if(qEl) qEl.innerText=Q[x.k]||0;
+    });
+  }
   upd();
-  console.log('Page loaded - products varanum da');
-};
-// Backup ku oru thadava kooda call
-setTimeout(draw, 500);
+}
+render();
 </script>
-
 </body>
 </html>
