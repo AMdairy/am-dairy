@@ -225,8 +225,12 @@ function upd(){
   document.getElementById('tot').innerText='Total Rs.'+t;
   document.getElementById('qAmt').innerText='Total Rs.'+t+' - Scan to Pay';
   tot=t;
-  let upi=`upi://pay?pa=arulkumarfly-2@oksbi&pn=AM DAIRY JEDARPALAYAM&am=${t}&cu=INR`;
-  document.getElementById('qr').src=`https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${encodeURIComponent(upi)}`;
+  // QR Code & UPI Link Amount Update
+let upiLink = `upi://pay?pa=arulkumarfly-2@oksbi&pn=AM DAIRY JEDARPALAYAM&am=${t}&cu=INR`;
+let qr = document.getElementById('qrImg');
+if(qr) qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(upiLink)}`;
+let payBtn = document.getElementById('payBtn');
+if(payBtn) payBtn.href = upiLink;
 }
 
 function selA(el,n){
